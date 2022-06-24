@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Tag, Hobby, Milestone
+
+from .models import Hobby, Milestone, Tag
 
 
 @admin.register(Hobby)

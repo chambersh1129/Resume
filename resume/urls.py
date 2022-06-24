@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import AlpineView, BootstrapView, HomePageView, BulmaView, TailWindView
+from .views import AlpineView, BootstrapView, BulmaView, HomePageView, TailWindView
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),

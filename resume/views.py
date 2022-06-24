@@ -1,5 +1,6 @@
-from django.views.generic import TemplateView
 from django.urls import reverse
+from django.views.generic import TemplateView
+
 from .models import Hobby, Milestone
 
 

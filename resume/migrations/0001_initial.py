@@ -7,39 +7,50 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Hobby',
+            name="Hobby",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=64)),
-                ('description', models.TextField()),
-                ('img', models.URLField()),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.CharField(max_length=64)),
+                ("description", models.TextField()),
+                ("img", models.URLField()),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tag', models.CharField(max_length=32, unique=True)),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("tag", models.CharField(max_length=32, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Milestone',
+            name="Milestone",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=64)),
-                ('description', models.TextField()),
-                ('type', models.CharField(choices=[('job', 'Job'), ('role', 'Role'), ('cert', 'Certification'), ('edu', 'Education'), ('proj', 'Project')], max_length=4)),
-                ('start_date', models.DateField()),
-                ('end_date', models.DateField()),
-                ('tags', models.ManyToManyField(blank=True, to='resume.Tag')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.CharField(max_length=64)),
+                ("description", models.TextField()),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[
+                            ("job", "Job"),
+                            ("role", "Role"),
+                            ("cert", "Certification"),
+                            ("edu", "Education"),
+                            ("proj", "Project"),
+                        ],
+                        max_length=4,
+                    ),
+                ),
+                ("start_date", models.DateField()),
+                ("end_date", models.DateField()),
+                ("tags", models.ManyToManyField(blank=True, to="resume.Tag")),
             ],
             options={
-                'ordering': ['start_date'],
+                "ordering": ["start_date"],
             },
         ),
     ]

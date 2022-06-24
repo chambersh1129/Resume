@@ -1,0 +1,18 @@
+.home-navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.home-navbar-item {
+    width: 20%;
+    float: left;
+    border: 2px solid;
+    border-radius: 5px;
+    margin: 0px;
+}
+
+.home-navbar-link {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,36 @@
+{% extends 'resume/base.html' %}
+
+{% block imports %}
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endblock imports %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Hello World
+        </h1>
+        <p class="subtitle">
+            My first website with <strong>Alpine</strong>!
+        </p>
+    </div>
+    <p>Work Experience</p>
+    <ul>
+        {% for milestone in milestones %}
+        {% if milestone.type == "job" %}
+        <li>{{ milestone.title }} ({{ milestone.start_date }} - {{ milestone.end_date }})</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    <p>Hobbies</p>
+    <ul>
+        {% for hobby in hobbies %}
+        <li>{{ hobby.title }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}

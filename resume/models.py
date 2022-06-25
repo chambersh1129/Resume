@@ -2,9 +2,10 @@ from django.db import models
 
 
 class Hobby(models.Model):
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField()
-    img = models.URLField()
+    img = models.CharField(max_length=128)
 
     def __str__(self):
         return self.title
@@ -24,6 +25,7 @@ class Milestone(models.Model):
         EDU = "edu", "Education"
         PROJ = "proj", "Project"
 
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField()
     type = models.CharField(max_length=4, choices=TypeChoices.choices)
@@ -45,3 +47,22 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag
+
+
+class Profile(models.Model):
+    fullname = models.CharField(max_length=64)
+    email = models.EmailField()
+    bio = models.TextField()
+
+    def __str__(self):
+        return self.fullname
+
+    @property
+    def title(self):
+        most_recent_role = self.milestone_set.filter(type="role").order_by("-start_date").first()
+        most_recent_job = self.milestone_set.filter(type="job").order_by("-start_date").first()
+
+        if not most_recent_role or not most_recent_role:
+            return "n/a"
+
+        return f"{most_recent_role} at {most_recent_job}"

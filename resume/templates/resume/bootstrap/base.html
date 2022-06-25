@@ -1,0 +1,61 @@
+<!--
+Version: v5.2.0-beta1
+Docs:  https://getbootstrap.com/docs/5.2/getting-started/introduction/
+-->
+
+{% extends 'resume/base.html' %}
+{% load static %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'resume/css/bootstrap.min.css' %}">
+<script src="{% static 'resume/js/bootstrap.bundle.min.js' %}"></script>
+{% endblock imports %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <h1>Resume</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% for link in navbar %}
+                <li class="nav-item">
+                    {% if link.page in framework %}
+                    <a class="nav-link active" aria-current="page" href="{{ link.url }}">{{ link.page }}</a>
+                    {% else %}
+                    <a class="nav-link" href="{{ link.url }}">{{ link.page }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- <nav class="nav nav-pills nav-fill">
+    {% for link in navbar %}
+    {% if link.page in framework %}
+    <a class="nav-item nav-link active" href="{{ link.url }}">{{ link.page }}</a>
+    {% else %}
+    <a class="nav-item nav-link" href="{{ link.url }}">{{ link.page }}</a>
+    {% endif %}
+    {% endfor %}
+</nav> -->
+{% endblock navbar %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Hello World
+        </h1>
+        <p class="subtitle">
+            My first website with <strong>Bootstrap</strong>!
+        </p>
+    </div>
+</section>
+{% endblock content %}

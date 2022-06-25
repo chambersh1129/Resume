@@ -1,0 +1,25 @@
+<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item">
+            <p class="title">Resume</p>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            {% for link in navbar %}
+            {% if link.page in framework %}
+            <a class="navbar-item is-active" href="{{ link.url }}">{{ link.page }}</a>
+            {% else %}
+            <a class="navbar-item" href="{{ link.url }}">{{ link.page }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</nav>

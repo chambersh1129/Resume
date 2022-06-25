@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="container">
+    <div class="columns is-full">
+        {% for hobby in hobbies %}
+        <div class="column">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">{{ hobby.title }}</p>
+                    <button class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </header>
+                <div class="card-image">
+                    <figure class="image is-16x9">
+                        <img src="{{ hobby.img }}" alt="well it worked on my laptop">
+                    </figure>
+                </div>
+                <div class=" card-content">
+                    <div class="content">{{ hobby.description }}</div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="columns is-full">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

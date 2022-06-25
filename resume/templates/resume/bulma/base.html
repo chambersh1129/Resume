@@ -1,0 +1,48 @@
+<!--
+CSS:
+    Version: v0.9.4
+    Docs:  https://bulma.io/documentation/
+JS:
+    Version: v0.12.0
+    Docs:  https://bulmajs.tomerbe.co.uk/docs/0.12/1-getting-started/1-introduction/
+-->
+
+{% extends 'resume/base.html' %}
+{% load static %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'resume/css/bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'resume/css/bulma-helper.css' %}">
+<script src="{% static 'resume/js/bulma.js' %}"></script>
+{% endblock imports %}
+
+{% block navbar %}
+{% include "resume/bulma/navbar.html" %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container">
+    <div class="tabs-wrapper">
+        <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+            <ul>
+                <li class="is-active"><a>About</a></li>
+                <li><a>Work Experience</a></li>
+                <li><a>Hobbies</a></li>
+            </ul>
+        </div>
+        <div class="tabs-content">
+            <ul>
+                <li class="is-active">
+                    {% include "resume/bulma/about.html" %}
+                </li>
+                <li>
+                    {% include "resume/bulma/experience.html" %}
+                </li>
+                <li>
+                    {% include "resume/bulma/hobbies.html" %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,19 +1,25 @@
 <!--
-CSS:
-    Version: v0.9.4
-    Docs:  https://bulma.io/documentation/
-JS:
-    Version: v0.12.0
-    Docs:  https://bulmajs.tomerbe.co.uk/docs/0.12/1-getting-started/1-introduction/
+Bulma:
+    CSS:
+        Version: v0.9.4
+        Docs:  https://bulma.io/documentation/
+    JS:
+        Version: v0.12.0
+        Docs:  https://bulmajs.tomerbe.co.uk/docs/0.12/1-getting-started/1-introduction/
+Font Awesome:
+    Version: 6.1.1
 -->
 
 {% extends 'resume/base.html' %}
 {% load static %}
 
 {% block imports %}
-<link rel="stylesheet" href="{% static 'resume/css/bulma.min.css' %}">
-<link rel="stylesheet" href="{% static 'resume/css/bulma-helper.css' %}">
-<script src="{% static 'resume/js/bulma.js' %}"></script>
+<link rel="stylesheet" href="{% static 'resume/bulma/css/bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'resume/bulma/css/custom-bulma.css' %}">
+<link rel="stylesheet" href="{% static 'resume/css/all.min.css' %}">
+<script src="{% static 'resume/bulma/js/bulma.js' %}"></script>
+<script src="{% static 'resume/bulma/js/custom-bulma.js' %}" defer></script>
+<script src="{% static 'resume/js/all.min.js' %}"></script>
 {% endblock imports %}
 
 {% block navbar %}
@@ -26,7 +32,8 @@ JS:
         <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
             <ul>
                 <li class="is-active"><a>About</a></li>
-                <li><a>Work Experience</a></li>
+                <li><a>Experience</a></li>
+                <li><a>Table View</a></li>
                 <li><a>Hobbies</a></li>
             </ul>
         </div>
@@ -37,6 +44,9 @@ JS:
                 </li>
                 <li>
                     {% include "resume/bulma/experience.html" %}
+                </li>
+                <li>
+                    {% include "resume/bulma/table.html" %}
                 </li>
                 <li>
                     {% include "resume/bulma/hobbies.html" %}

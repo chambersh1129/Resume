@@ -7,7 +7,38 @@
             {{ profile.title }}
         </p>
         <p>
-            {{ profile.bio }}
+            {{ profile.bio|linebreaksbr }}
         </p>
+        <br>
+        {% if profile.email %}
+        <p>
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-at"></i>
+                </span>
+                <a href="mailto:{{ profile.email }}">Email</a>
+            </span>
+        </p>
+        {% endif %}
+        {% if profile.github %}
+        <p>
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-brands fa-github"></i>
+                </span>
+                <a href="{{ profile.github }}">GitHub</a>
+            </span>
+        </p>
+        {% endif %}
+        {% if profile.linkedin %}
+        <p>
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-brands fa-linkedin"></i>
+                </span>
+                <a href="{{ profile.linkedin }}">LinkedIn</a>
+            </span>
+        </p>
+        {% endif %}
     </div>
 </section>

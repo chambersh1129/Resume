@@ -7,8 +7,8 @@ Docs:  https://getbootstrap.com/docs/5.2/getting-started/introduction/
 {% load static %}
 
 {% block imports %}
-<link rel="stylesheet" href="{% static 'resume/css/bootstrap.min.css' %}">
-<script src="{% static 'resume/js/bootstrap.bundle.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'resume/bootstrap/css/bootstrap.min.css' %}">
+<script src="{% static 'resume/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 {% endblock imports %}
 
 {% block navbar %}
@@ -36,15 +36,6 @@ Docs:  https://getbootstrap.com/docs/5.2/getting-started/introduction/
         </div>
     </div>
 </nav>
-<!-- <nav class="nav nav-pills nav-fill">
-    {% for link in navbar %}
-    {% if link.page in framework %}
-    <a class="nav-item nav-link active" href="{{ link.url }}">{{ link.page }}</a>
-    {% else %}
-    <a class="nav-item nav-link" href="{{ link.url }}">{{ link.page }}</a>
-    {% endif %}
-    {% endfor %}
-</nav> -->
 {% endblock navbar %}
 
 {% block content %}

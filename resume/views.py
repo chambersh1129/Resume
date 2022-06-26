@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 
 from .models import Hobby, Milestone, Profile
 
@@ -15,8 +15,7 @@ class AbstractResumeView(TemplateView):
             context["milestones"] = Milestone.objects.filter(profile=profile)
             context["hobbies"] = Hobby.objects.filter(profile=profile)
             context["navbar"] = [
-                {"page": "Home", "url": reverse("home")},
-                {"page": "Bootstrap", "url": reverse("bootstrap")},
+                # {"page": "Bootstrap", "url": reverse("bootstrap")},
                 {"page": "Bulma", "url": reverse("bulma")},
             ]
 
@@ -24,8 +23,9 @@ class AbstractResumeView(TemplateView):
         return context
 
 
-class HomePageView(AbstractResumeView):
-    template_name = "resume/base.html"
+class HomeView(RedirectView):
+    permanent = True
+    pattern_name = "bulma"
 
 
 class BootstrapView(AbstractResumeView):

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 
@@ -14,7 +16,7 @@ class Hobby(models.Model):
 class MilestoneManager(models.Manager):
     # Always prefect_related tags to reduce DB calls
     def get_queryset(self):
-        return super().get_queryset().prefetch_related("tags")
+        return super().get_queryset().prefetch_related("tag")
 
 
 class Milestone(models.Model):
@@ -29,9 +31,9 @@ class Milestone(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
     type = models.CharField(max_length=4, choices=TypeChoices.choices)
-    tags = models.ManyToManyField("tag", blank=True)
+    tag = models.ManyToManyField("tag", blank=True)
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(null=True)
 
     objects = MilestoneManager()
 
@@ -40,6 +42,14 @@ class Milestone(models.Model):
 
     class Meta:
         ordering = ["start_date"]
+
+    def tags(self):
+        return [str(tag) for tag in self.tag.all()]
+
+    @property
+    def total_time(self):
+        total_time = (self.end_date or datetime.now()) - self.start_date
+        return f"{total_time.days} days"
 
 
 class Tag(models.Model):
@@ -51,8 +61,10 @@ class Tag(models.Model):
 
 class Profile(models.Model):
     fullname = models.CharField(max_length=64)
-    email = models.EmailField()
+    email = models.EmailField(null=True)
     bio = models.TextField()
+    github = models.URLField(null=True)
+    linkedin = models.URLField(null=True)
 
     def __str__(self):
         return self.fullname

@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import BootstrapView, BulmaView, HomePageView
+from .views import BulmaView, HomeView
 
 urlpatterns = [
-    path("", HomePageView.as_view(), name="home"),
-    path("bootstrap/", BootstrapView.as_view(), name="bootstrap"),
+    path("", HomeView.as_view()),
+    # path("bootstrap/", BootstrapView.as_view(), name="bootstrap"),
     path("bulma/", BulmaView.as_view(), name="bulma"),
 ]

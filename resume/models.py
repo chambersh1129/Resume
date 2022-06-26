@@ -21,7 +21,6 @@ class MilestoneManager(models.Manager):
 
 class Milestone(models.Model):
     class TypeChoices(models.TextChoices):
-        JOB = "job", "Job"
         ROLE = "role", "Role"
         CERT = "cert", "Certification"
         EDU = "edu", "Education"
@@ -41,7 +40,7 @@ class Milestone(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["start_date"]
+        ordering = ["-start_date"]
 
     def tags(self):
         return [str(tag) for tag in self.tag.all()]
@@ -72,9 +71,8 @@ class Profile(models.Model):
     @property
     def title(self):
         most_recent_role = self.milestone_set.filter(type="role").order_by("-start_date").first()
-        most_recent_job = self.milestone_set.filter(type="job").order_by("-start_date").first()
 
-        if not most_recent_role or not most_recent_role:
-            return "n/a"
+        if most_recent_role.end_date:
+            return "Currently seeking new opportunities"
 
-        return f"{most_recent_role} at {most_recent_job}"
+        return f"{most_recent_role}"

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Hunter Chambers - Resume</title>
+</head>
+
+<body>
+    <h1>Hi, I'm {{ about.full_name }}</h1>
+    <h3>{{ about.title }}</h3>
+    <p>{{ about.bio|linebreaksbr }}</p>
+    {% for link in links %}
+    {% if not link.framework == "Home" %}
+    <br>
+    --&gt;<a href="{{ link.url }}">Click Here to see my resume presented in {{ link.framework }}</a>&lt;--
+    {% endif %}
+    {% endfor %} <br><br>
+    <b>Contact Me:</b>
+    {% if about.email %}
+    <br>Email: <a href="mailto:{{ about.email }}">{{ about.email }}</a>
+    {% endif %}
+    {% if about.github %}
+    <br>GitHub: <a href="{{ about.github }}">{{ about.github }}</a>
+    {% endif %}
+    {% if about.linkedin %}
+    <br>LinkedIn: <a href="{{ about.linkedin }}">{{ about.linkedin }}</a>
+    {% endif %}
+</body>
+
+</html>

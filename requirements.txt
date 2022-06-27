@@ -1,1 +1,5 @@
 django~=3.2
+django-environ
+django-health-check~=3.16
+djangorestframework~=3.13
+uritemplate~=4.1

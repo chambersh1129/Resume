@@ -12,7 +12,7 @@ class TimeRangeAbstractModel(models.Model):
 
     @property
     def total_time(self):
-        if not self.start_time:
+        if not self.start_date:
             return "n/a"
 
         total_time = (self.end_date or datetime.now()) - self.start_date

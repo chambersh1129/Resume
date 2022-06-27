@@ -3,14 +3,67 @@ from datetime import datetime
 from django.db import models
 
 
+class TimeRangeAbstractModel(models.Model):
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+
+    class Meta:
+        abstract = True
+
+    @property
+    def total_time(self):
+        if not self.start_time:
+            return "n/a"
+
+        total_time = (self.end_date or datetime.now()) - self.start_date
+        return f"{total_time.days} days"
+
+
+class AboutMe(models.Model):
+    first_name = models.CharField(max_length=32)
+    last_name = models.CharField(max_length=32)
+    bio = models.TextField()
+    email = models.EmailField(null=True)
+    github = models.URLField(null=True)
+    linkedin = models.URLField(null=True)
+
+    def __str__(self):
+        return self.full_name
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def title(self):
+        most_recent_role = JobRole.objects.order_by("-start_date").first()
+
+        if most_recent_role.end_date:
+            return "Currently seeking new opportunities"
+
+        return f"{most_recent_role}"
+
+
 class Hobby(models.Model):
-    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
-    title = models.CharField(max_length=64)
+    hobby = models.CharField(max_length=64)
     description = models.TextField()
-    img = models.CharField(max_length=128)
+    img = models.URLField()
 
     def __str__(self):
         return self.title
+
+
+class JobRole(TimeRangeAbstractModel):
+    company = models.CharField(max_length=64)
+    title = models.CharField(max_length=64)
+    description = models.TextField()
+    img = models.URLField()
+
+    class Meta:
+        ordering = ["-start_date"]
+
+    def __str__(self):
+        return f"{self.title} at {self.company}"
 
 
 class MilestoneManager(models.Manager):
@@ -19,15 +72,14 @@ class MilestoneManager(models.Manager):
         return super().get_queryset().prefetch_related("tag")
 
 
-class Milestone(models.Model):
+class Milestone(TimeRangeAbstractModel):
     class TypeChoices(models.TextChoices):
         ROLE = "role", "Role"
         CERT = "cert", "Certification"
         EDU = "edu", "Education"
         PROJ = "proj", "Project"
 
-    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
-    title = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)
     description = models.TextField()
     type = models.CharField(max_length=4, choices=TypeChoices.choices)
     tag = models.ManyToManyField("tag", blank=True)
@@ -36,19 +88,14 @@ class Milestone(models.Model):
 
     objects = MilestoneManager()
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         ordering = ["-start_date"]
 
+    def __str__(self):
+        return self.title
+
     def tags(self):
         return [str(tag) for tag in self.tag.all()]
-
-    @property
-    def total_time(self):
-        total_time = (self.end_date or datetime.now()) - self.start_date
-        return f"{total_time.days} days"
 
 
 class Tag(models.Model):
@@ -56,23 +103,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag
-
-
-class Profile(models.Model):
-    fullname = models.CharField(max_length=64)
-    email = models.EmailField(null=True)
-    bio = models.TextField()
-    github = models.URLField(null=True)
-    linkedin = models.URLField(null=True)
-
-    def __str__(self):
-        return self.fullname
-
-    @property
-    def title(self):
-        most_recent_role = self.milestone_set.filter(type="role").order_by("-start_date").first()
-
-        if most_recent_role.end_date:
-            return "Currently seeking new opportunities"
-
-        return f"{most_recent_role}"

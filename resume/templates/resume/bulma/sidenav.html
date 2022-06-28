@@ -1,0 +1,15 @@
+<aside class="menu mx-2 mt-5">
+    <p class="menu-label">
+        Bulma
+    </p>
+    <ul class="menu-list">
+        <li><a hx-get="{% url 'bulma-about' %}" hx-trigger="load, click" hx-target="#bulma-content">About
+                Me</a>
+        </li>
+        <li><a hx-get="{% url 'bulma-work-history' %}" hx-trigger="click" hx-target="#bulma-content">Work
+                History</a></li>
+        <li><a hx-get="{% url 'bulma-milestones' %}" hx-trigger="click" hx-target="#bulma-content">Milestones</a></li>
+        <li><a hx-get="{% url 'bulma-hobbies' %}" hx-trigger="click" hx-target="#bulma-content">Hobbies</a>
+        </li>
+    </ul>
+</aside>

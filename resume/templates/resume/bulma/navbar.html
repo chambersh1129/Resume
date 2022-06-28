@@ -1,25 +1,31 @@
-<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+<nav class="navbar has-background-link-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item">
-            <p class="title">Resume</p>
+            <p class="title has-text-white">Resume</p>
         </a>
-
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="resumeNavBar">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="resume-nav-bar">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
         </a>
     </div>
-
-    <div id="resumeNavBar" class="navbar-menu">
+    <div id="resume-nav-bar" class="navbar-menu">
         <div class="navbar-start">
-            {% for link in navbar %}
-            {% if link.page in framework %}
-            <a class="navbar-item is-active" href="{{ link.url }}">{{ link.page }}</a>
-            {% else %}
-            <a class="navbar-item" href="{{ link.url }}">{{ link.page }}</a>
-            {% endif %}
+            {% for link in view.links %}
+            <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
             {% endfor %}
         </div>
+        {% if view.about.github %}
+        <div class="navbar-end">
+            <div class="navbar-item bd-navbar-download-button is-hidden-touch">
+                <a class="button is-primary mr-3" href="{{ view.about.github }}">
+                    <span class="icon is-hidden-touch is-hidden-desktop-only">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Source Code</span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </nav>

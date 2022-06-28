@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import AboutMe, Hobby, JobRole, Milestone, Tag
+from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 
 
 class AboutMeSerializer(serializers.ModelSerializer):
@@ -15,9 +15,9 @@ class HobbySerializer(serializers.ModelSerializer):
         fields = ["id", "hobby", "description"]
 
 
-class JobRoleSerializer(serializers.ModelSerializer):
+class WorkHistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = JobRole
+        model = WorkHistory
         fields = ["id", "company", "title", "description", "start_date", "end_date", "total_time"]
 
 

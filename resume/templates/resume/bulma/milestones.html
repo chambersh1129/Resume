@@ -1,0 +1,53 @@
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead>
+        <tr>
+            <th>Milestone</th>
+            <th>Type</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for milestone in view.milestones %}
+        <tr>
+            <td>
+                <span>{{ milestone.name }}</span>
+                <a hx-get="{% url 'bulma-milestone-detail' milestone.id %}" hx-trigger="click"
+                    hx-target="#bulma-milestone-modal">
+                    <span class="icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </span>
+                </a>
+            </td>
+            <td>{{ milestone.type_label }}</td>
+            <td>
+                {% for tag in milestone.tags %}
+                <span class="tag is-success">{{ tag }}</span>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if view.next_page or view.prev_page %}
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    {% if view.prev_page %}
+    <a class="pagination-previous" hx-get="{% url 'bulma-milestones' %}{{ view.prev_page }}" hx-trigger="click"
+        hx-target="#bulma-content">Previous</a>
+    {% else %}
+    <a class="pagination-next is-disabled">Previous</a>
+    {% endif %}
+    {% if view.next_page %}
+    <a class="pagination-next" hx-get="{% url 'bulma-milestones' %}{{ view.next_page }}" hx-trigger="click"
+        hx-target="#bulma-content">Next page</a>
+    {% else %}
+    <a class="pagination-next is-disabled">Next page</a>
+    {% endif %}
+</nav>
+{% endif %}
+<div id="bulma-milestone-modal" class="modal"></div>
+<script>
+    document.body.addEventListener("openModal", function (evt) {
+        var bulma_modal = Bulma("#bulma-milestone-modal").modal();
+        bulma_modal.open();
+    })
+</script>

@@ -3,22 +3,6 @@ from datetime import datetime
 from django.db import models
 
 
-class TimeRangeAbstractModel(models.Model):
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
-
-    class Meta:
-        abstract = True
-
-    @property
-    def total_time(self):
-        if not self.start_date:
-            return "n/a"
-
-        total_time = (self.end_date or datetime.now()) - self.start_date
-        return f"{total_time.days} days"
-
-
 class AboutMe(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
@@ -36,7 +20,7 @@ class AboutMe(models.Model):
 
     @property
     def title(self):
-        most_recent_role = JobRole.objects.order_by("-start_date").first()
+        most_recent_role = WorkHistory.objects.order_by("-start_date").first()
 
         if most_recent_role.end_date:
             return "Currently seeking new opportunities"
@@ -53,17 +37,27 @@ class Hobby(models.Model):
         return self.title
 
 
-class JobRole(TimeRangeAbstractModel):
+class WorkHistory(models.Model):
     company = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
     description = models.TextField()
     img = models.URLField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     class Meta:
         ordering = ["-start_date"]
 
     def __str__(self):
         return f"{self.title} at {self.company}"
+
+    @property
+    def total_time(self):
+        if not self.start_date:
+            return "n/a"
+
+        total_time = (self.end_date or datetime.now().date()) - self.start_date
+        return f"{round(total_time.days / 365, 2)} years"
 
 
 class MilestoneManager(models.Manager):
@@ -72,9 +66,8 @@ class MilestoneManager(models.Manager):
         return super().get_queryset().prefetch_related("tag")
 
 
-class Milestone(TimeRangeAbstractModel):
+class Milestone(models.Model):
     class TypeChoices(models.TextChoices):
-        ROLE = "role", "Role"
         CERT = "cert", "Certification"
         EDU = "edu", "Education"
         PROJ = "proj", "Project"
@@ -83,16 +76,15 @@ class Milestone(TimeRangeAbstractModel):
     description = models.TextField()
     type = models.CharField(max_length=4, choices=TypeChoices.choices)
     tag = models.ManyToManyField("tag", blank=True)
-    start_date = models.DateField()
-    end_date = models.DateField(null=True)
 
     objects = MilestoneManager()
 
-    class Meta:
-        ordering = ["-start_date"]
-
     def __str__(self):
-        return self.title
+        return self.name
+
+    @property
+    def type_label(self):
+        return Milestone.TypeChoices(self.type).label
 
     def tags(self):
         return [str(tag) for tag in self.tag.all()]

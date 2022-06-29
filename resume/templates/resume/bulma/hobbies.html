@@ -1,3 +1,29 @@
-<h1>My Hobbies</h1>
+<section class="section">
+    <div class="container is-clipped">
+        <div id="bulma-hobby-carousel">
+            {% for hobby in view.hobbies %}
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="{{ hobby.img }}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <p class="title is-4">{{ hobby.hobby }}</p>
+                    <div class="content">
+                        {{ hobby.description|linebreaksbr }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-<p>I did a swap to hobbies</p>
+<script>
+    bulmaCarousel.attach('#bulma-hobby-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 2,
+        loop: true,
+    });
+</script>

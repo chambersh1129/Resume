@@ -69,6 +69,7 @@ class MilestoneManager(models.Manager):
 class Milestone(models.Model):
     class TypeChoices(models.TextChoices):
         CERT = "cert", "Certification"
+        CONF = "conf", "Conference"
         EDU = "edu", "Education"
         PROJ = "proj", "Project"
 

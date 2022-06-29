@@ -145,7 +145,7 @@ class URLAbstractView(TemplateView):
         self.links = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
             {"page": "Bulma", "url": reverse("bulma")},
-            {"page": "API Docs", "url": reverse("swagger")},
+            {"page": "Swagger API", "url": reverse("swagger")},
         ]
         response = super(URLAbstractView, self).dispatch(request, *args, **kwargs)
         return response

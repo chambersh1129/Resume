@@ -31,10 +31,10 @@ class AboutMe(models.Model):
 class Hobby(models.Model):
     hobby = models.CharField(max_length=64)
     description = models.TextField()
-    img = models.URLField()
+    img = models.CharField(max_length=64)
 
     def __str__(self):
-        return self.title
+        return self.hobby
 
 
 class WorkHistory(models.Model):
@@ -92,6 +92,9 @@ class Milestone(models.Model):
 
 class Tag(models.Model):
     tag = models.CharField(max_length=32, unique=True)
+
+    class Meta:
+        ordering = ["tag"]
 
     def __str__(self):
         return self.tag

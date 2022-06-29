@@ -5,16 +5,11 @@ from django.views.generic.detail import DetailView
 from rest_framework.mixins import ListModelMixin
 from rest_framework.viewsets import GenericViewSet
 
-from .models import AboutMe, Hobby, Milestone, WorkHistory
+from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 from .serializers import AboutMeSerializer, HobbySerializer, MilestoneSerializer, WorkHistorySerializer
 
 
 class AboutAbstractView(TemplateView):
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["about"] = AboutMe.objects.first()
-    #     return context
-
     def dispatch(self, request, *args, **kwargs):
         self.about = AboutMe.objects.first()
         response = super(AboutAbstractView, self).dispatch(request, *args, **kwargs)
@@ -22,11 +17,6 @@ class AboutAbstractView(TemplateView):
 
 
 class HobbyAbstractView(TemplateView):
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["hobbies"] = Hobby.objects.all()
-    #     return context
-
     def dispatch(self, request, *args, **kwargs):
         self.hobbies = Hobby.objects.all()
         response = super(HobbyAbstractView, self).dispatch(request, *args, **kwargs)
@@ -34,22 +24,52 @@ class HobbyAbstractView(TemplateView):
 
 
 class MilestoneAbstractView(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        self.milestone_types = Milestone.TypeChoices
+        self.tags = list(Tag.objects.all().values_list("tag", flat=True))
+        response = super(MilestoneAbstractView, self).dispatch(request, *args, **kwargs)
+        return response
+
+
+class MilestoneDetailAbstractView(DetailView):
+    HX_TRIGGER = None
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super(MilestoneDetailAbstractView, self).dispatch(request, *args, **kwargs)
+        if self.HX_TRIGGER:
+            response["HX-Trigger-After-Settle"] = self.HX_TRIGGER
+        return response
+
+
+class MilestoneTableAbstractView(TemplateView):
     OFFSET = 0
     LIMIT = 10
 
     def _get_queryset(self, params):
-        query_list = []
+        query_filter = []
+        get_params = ""
 
-        if "name" in params:
-            query_list.append(Q(name__icontains=params.get("name")))
+        if "milestone" in params:
+            param = params.get("milestone")
+            query_filter.append(Q(name__icontains=param))
+            get_params += f"&milestone={param}"
+
+        if "desc" in params:
+            param = params.get("desc")
+            query_filter.append(Q(description__icontains=param))
+            get_params += f"&desc={param}"
 
         if "type" in params:
-            query_list.append(Q(type__icontains=params.get("type")))
+            param = params.get("type")
+            query_filter.append(Q(type__icontains=param))
+            get_params += f"&type={param}"
 
         if "tag" in params:
-            query_list.append(Q(tag__tag__icontains=params.get("tag")))
+            param = params.get("tag")
+            query_filter.append(Q(tag__tag__icontains=param))
+            get_params += f"&tag={param}"
 
-        return query_list
+        return query_filter, get_params
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -64,9 +84,10 @@ class MilestoneAbstractView(TemplateView):
         except Exception:
             limit = self.LIMIT
 
-        query_list = self._get_queryset(request.GET)
-        if query_list:
-            query = Milestone.objects.filter(*query_list).distinct()
+        query_filter, get_params = self._get_queryset(request.GET)
+
+        if query_filter:
+            query = Milestone.objects.filter(*query_filter).distinct()
 
         else:
             query = Milestone.objects.all()
@@ -74,17 +95,19 @@ class MilestoneAbstractView(TemplateView):
         total_count = query.count()
         if total_count > (offset + limit):
             self.next_page = f"?offset={offset+limit}"
+            if get_params:
+                self.next_page += get_params
 
         if offset:
             self.prev_page = f"?offset={offset-limit}"
+            if get_params:
+                self.prev_page += get_params
 
         max = offset + limit
 
         self.milestones = query[offset:max]
 
-        self.milestone_types = dict(zip(Milestone.TypeChoices.values, Milestone.TypeChoices.labels))
-
-        response = super(MilestoneAbstractView, self).dispatch(request, *args, **kwargs)
+        response = super(MilestoneTableAbstractView, self).dispatch(request, *args, **kwargs)
         return response
 
 
@@ -118,18 +141,6 @@ class WorkHistoryAbstractView(TemplateView):
 
 
 class URLAbstractView(TemplateView):
-    # exclude_links = []
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["links"] = [
-    #         {"page": "Bootstrap", "url": reverse("bootstrap")},
-    #         {"page": "Bulma", "url": reverse("bulma")},
-    #         {"page": "API Docs", "url": reverse("swagger")},
-    #     ]
-    #     context["exclude_links"] = self.exclude_links
-    #     return context
-
     def dispatch(self, request, *args, **kwargs):
         self.links = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
@@ -165,14 +176,14 @@ class BulmaMilestoneView(MilestoneAbstractView):
     template_name = "resume/bulma/milestones.html"
 
 
-class BulmaMilestoneDetailView(DetailView):
+class BulmaMilestoneTableView(MilestoneTableAbstractView):
+    template_name = "resume/bulma/milestone_table.html"
+
+
+class BulmaMilestoneDetailView(MilestoneDetailAbstractView):
     template_name = "resume/bulma/milestone_detail.html"
     model = Milestone
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super(BulmaMilestoneDetailView, self).dispatch(request, *args, **kwargs)
-        response["HX-Trigger-After-Settle"] = "openModal"
-        return response
+    HX_TRIGGER = "openBulmaModal"
 
 
 class BulmaWorkHistoryView(WorkHistoryAbstractView):

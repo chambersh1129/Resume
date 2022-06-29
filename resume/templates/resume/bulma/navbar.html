@@ -15,10 +15,9 @@
             <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
             {% endfor %}
         </div>
-        {% if view.about.github %}
         <div class="navbar-end">
             <div class="navbar-item bd-navbar-download-button is-hidden-touch">
-                <a class="button is-primary mr-3" href="{{ view.about.github }}">
+                <a class="button is-primary mr-3" href="https://github.com/chambersh1129/Resume" target="_blank">
                     <span class="icon is-hidden-touch is-hidden-desktop-only">
                         <i class="fab fa-github"></i>
                     </span>
@@ -26,6 +25,5 @@
                 </a>
             </div>
         </div>
-        {% endif %}
     </div>
 </nav>

@@ -3,5 +3,6 @@ django-environ
 django-health-check~=3.16
 djangorestframework~=3.13
 gunicorn~=20.1
+psycopg2-binary~=2.9
 uritemplate~=4.1
 whitenoise~=6.2

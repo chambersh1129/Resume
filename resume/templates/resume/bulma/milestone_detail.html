@@ -1,0 +1,16 @@
+<div class="modal-background"></div>
+<div class="modal-card">
+    <header class="modal-card-head">
+        <p class="modal-card-title">{{ milestone.name }}</p>
+        <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+        <p>{{ milestone.description|linebreaksbr }}</p><br>
+        {% for tag in milestone.tags %}
+        <span class="tag is-success">{{ tag }}</span>
+        {% endfor %}
+    </section>
+    <footer class="modal-card-foot">
+        <p>Milestone Classification: {{ milestone.type_label }}</p>
+    </footer>
+</div>

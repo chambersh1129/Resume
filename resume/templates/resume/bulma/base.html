@@ -1,58 +1,35 @@
-<!--
-Bulma:
-    CSS:
-        Version: v0.9.4
-        Docs:  https://bulma.io/documentation/
-    JS:
-        Version: v0.12.0
-        Docs:  https://bulmajs.tomerbe.co.uk/docs/0.12/1-getting-started/1-introduction/
-Font Awesome:
-    Version: 6.1.1
--->
-
-{% extends 'resume/base.html' %}
 {% load static %}
 
-{% block imports %}
-<link rel="stylesheet" href="{% static 'resume/bulma/css/bulma.min.css' %}">
-<link rel="stylesheet" href="{% static 'resume/bulma/css/custom-bulma.css' %}">
-<link rel="stylesheet" href="{% static 'resume/css/all.min.css' %}">
-<script src="{% static 'resume/bulma/js/bulma.js' %}"></script>
-<script src="{% static 'resume/bulma/js/custom-bulma.js' %}" defer></script>
-<script src="{% static 'resume/js/all.min.js' %}"></script>
-{% endblock imports %}
+<!DOCTYPE html>
+<html>
 
-{% block navbar %}
-{% include "resume/bulma/navbar.html" %}
-{% endblock navbar %}
+<head>
+    <meta charset="utf-8">
+    <title>Hunter Chambers - Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="{% static 'resume/js/bulma.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.7.0"
+        integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo"
+        crossorigin="anonymous"></script>
+</head>
 
-{% block content %}
-<div class="container">
-    <div class="tabs-wrapper">
-        <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
-            <ul>
-                <li class="is-active"><a>About</a></li>
-                <li><a>Experience</a></li>
-                <li><a>Table View</a></li>
-                <li><a>Hobbies</a></li>
-            </ul>
+<body>
+    {% include "resume/bulma/navbar.html" %}
+    <div class="columns is-fullwidth">
+        <div class="column is-1 is-offset-2  has-background-light">
+            {% include "resume/bulma/sidenav.html" %}
         </div>
-        <div class="tabs-content">
-            <ul>
-                <li class="is-active">
-                    {% include "resume/bulma/about.html" %}
-                </li>
-                <li>
-                    {% include "resume/bulma/experience.html" %}
-                </li>
-                <li>
-                    {% include "resume/bulma/table.html" %}
-                </li>
-                <li>
-                    {% include "resume/bulma/hobbies.html" %}
-                </li>
-            </ul>
+        <div class="column is-7">
+            <section class="hero">
+                <div class="hero-body">
+                    <div id="bulma-content"></div>
+                </div>
+            </section>
         </div>
     </div>
-</div>
-{% endblock content %}
+</body>
+
+</html>

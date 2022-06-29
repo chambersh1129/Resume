@@ -1,44 +1,40 @@
-<section class="hero">
-    <div class="hero-body">
-        <p class="title">
-            {{ profile.fullname }}
-        </p>
-        <p class="subtitle">
-            {{ profile.title }}
-        </p>
-        <p>
-            {{ profile.bio|linebreaksbr }}
-        </p>
-        <br>
-        {% if profile.email %}
-        <p>
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fa-solid fa-at"></i>
-                </span>
-                <a href="mailto:{{ profile.email }}">Email</a>
-            </span>
-        </p>
-        {% endif %}
-        {% if profile.github %}
-        <p>
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fa-brands fa-github"></i>
-                </span>
-                <a href="{{ profile.github }}">GitHub</a>
-            </span>
-        </p>
-        {% endif %}
-        {% if profile.linkedin %}
-        <p>
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fa-brands fa-linkedin"></i>
-                </span>
-                <a href="{{ profile.linkedin }}">LinkedIn</a>
-            </span>
-        </p>
-        {% endif %}
-    </div>
-</section>
+<p class="title">
+    {{ view.about.full_name }}
+</p>
+<p class="subtitle">
+    {{ view.about.title }}
+</p>
+<p>
+    {{ view.about.bio|linebreaksbr }}
+</p>
+<br>
+{% if view.about.email %}
+<p>
+    <span class="icon-text">
+        <span class="icon">
+            <i class="fa-solid fa-at"></i>
+        </span>
+        <a href="mailto:{{ view.about.email }}">Email</a>
+    </span>
+</p>
+{% endif %}
+{% if view.about.github %}
+<p>
+    <span class="icon-text">
+        <span class="icon">
+            <i class="fa-brands fa-github"></i>
+        </span>
+        <a href="{{ view.about.github }}">GitHub</a>
+    </span>
+</p>
+{% endif %}
+{% if view.about.linkedin %}
+<p>
+    <span class="icon-text">
+        <span class="icon">
+            <i class="fa-brands fa-linkedin"></i>
+        </span>
+        <a href="{{ view.about.linkedin }}">LinkedIn</a>
+    </span>
+</p>
+{% endif %}

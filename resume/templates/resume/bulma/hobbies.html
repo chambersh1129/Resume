@@ -1,33 +1,3 @@
-{% load static %}
+<h1>My Hobbies</h1>
 
-<div class="container">
-    <div class="columns is-full">
-        {% for hobby in hobbies %}
-        <div class="column">
-            <div class="card" id="hobby-card-{{ hobby.id }}">
-                <header class="card-header">
-                    <p class="card-header-title">{{ hobby.title }}</p>
-                    <button class="card-header-icon" aria-label="more options"
-                        onclick="expandCard('hobby-card-{{ hobby.id }}')">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </header>
-                <div class="card-image is-hidden">
-                    <figure class="image is-16x9">
-                        <img src="{{ hobby.img }}" alt="well it worked on my laptop">
-                    </figure>
-                </div>
-                <div class="card-content is-hidden">
-                    <div class="content">{{ hobby.description|linebreaksbr }}</div>
-                </div>
-            </div>
-        </div>
-        {% if forloop.counter|divisibleby:2 %}
-    </div>
-    <div class="columns is-full">
-        {% endif %}
-        {% endfor %}
-    </div>
-</div>
+<p>I did a swap to hobbies</p>

@@ -1,22 +1,27 @@
 from django.contrib import admin
 
-from .models import Hobby, Milestone, Profile, Tag
+from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 
 
 @admin.register(Hobby)
 class HobbyAdmin(admin.ModelAdmin):
-    list_display = ["title", "profile", "img"]
+    list_display = ["hobby"]
 
 
 @admin.register(Milestone)
 class MilestoneAdmin(admin.ModelAdmin):
-    list_display = ["title", "profile", "type", "tags", "start_date", "end_date"]
-    list_filter = ["type", "start_date", "end_date"]
+    list_display = ["name", "type", "tags"]
+    list_filter = ["type"]
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ["fullname", "email"]
+@admin.register(WorkHistory)
+class WorkHistoryAdmin(admin.ModelAdmin):
+    list_display = ["title", "company", "start_date", "end_date", "total_time"]
+
+
+@admin.register(AboutMe)
+class AboutMeAdmin(admin.ModelAdmin):
+    list_display = ["full_name"]
 
 
 @admin.register(Tag)

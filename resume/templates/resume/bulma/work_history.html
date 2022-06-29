@@ -1,0 +1,50 @@
+{% for role in view.work_history %}
+<div class="box">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="{{ role.img }}" alt="Image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content">
+                <p class="title is-4">{{ role.title }} at {{ role.company }}</p>
+                <p>{{ role.description|linebreaksbr }}</p>
+                <nav class="level is-mobile">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Start Date</p>
+                            <p>{{ role.start_date }}</p>
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">End Date</p>
+                            {% if not role.end_date %}
+                            <p>Present</p>
+                            {% else %}
+                            <p>{{ role.end_date }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Total Time</p>
+                            <p>{{ role.total_time }}</p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </article>
+</div>
+{% endfor %}
+{% if view.next_page %}
+<div id="more_work_history">
+    <div class="block has-text-centered">
+        <button class="button is-info is-outlined" hx-get="{% url 'bulma-work-history' %}{{ view.next_page }}"
+            hx-target="#more_work_history" hx-swap="outerHTML">
+            Load more Work History</button>
+    </div>
+</div>
+{% endif %}

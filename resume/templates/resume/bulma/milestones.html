@@ -1,0 +1,89 @@
+<div hx-target="#bulma-milestone-table" hx-include="[name='milestone'],[name='desc'],[name='type'],[name='tag']">
+    <div class="field is-horizontal">
+        <div class="field-label is-small">
+            <label class="label">Milestone</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input id="bulma-milestone-search-milestone" class="input is-small" type="text" name="milestone"
+                        placeholder="search by milestone" hx-get="{% url 'bulma-milestone-table' %}"
+                        hx-trigger="keyup changed delay:500ms, search">
+                </div>
+            </div>
+        </div>
+        <div class="field-label is-small">
+            <label class="label">Description</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <input id="bulma-milestone-search-desc" class="input is-small" type="text" name="desc"
+                        placeholder="search in the description" hx-get="{% url 'bulma-milestone-table' %}"
+                        hx-trigger="keyup changed delay:500ms, search">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-small">
+            <label class="label">Type</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <div class="select">
+                        <select id="bulma-milestone-search-type" name="type" hx-get="{% url 'bulma-milestone-table' %}"
+                            hx-trigger="change">
+                            <option value="">Select Type</option>
+                            {% for type in view.milestone_types %}
+                            <option value="{{ type.value }}">{{ type.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field-label is-small">
+            <label class="label">Tag</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    <div class="select">
+                        <select id="bulma-milestone-search-tag" name="tag" hx-get="{% url 'bulma-milestone-table' %}"
+                            hx-trigger="change">
+                            <option value="">Select Tag</option>
+                            {% for tag in view.tags %}
+                            <option value="{{ tag }}">{{ tag }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-grouped is-grouped-right">
+    <p class="control">
+        <a class="button is-danger" onclick="test_clear()" hx-target="#bulma-milestone-table"
+            hx-get="{% url 'bulma-milestone-table' %}">
+            Clear Filters
+        </a>
+    </p>
+</div>
+<table id="bulma-milestone-table" class="table is-striped is-hoverable is-fullwidth"
+    hx-get="{% url 'bulma-milestone-table' %}" hx-trigger="load"></table>
+<div id="bulma-milestone-modal" class="modal"></div>
+<script>
+    document.body.addEventListener("openBulmaModal", function (evt) {
+        var bulma_modal = Bulma("#bulma-milestone-modal").modal();
+        bulma_modal.open();
+    });
+    function test_clear() {
+        document.getElementById("bulma-milestone-search-milestone").value = "";
+        document.getElementById("bulma-milestone-search-desc").value = "";
+        document.getElementById("bulma-milestone-search-type").selectedIndex = 0;
+        document.getElementById("bulma-milestone-search-tag").selectedIndex = 0;
+    }
+</script>

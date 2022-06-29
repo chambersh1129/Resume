@@ -84,6 +84,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 if DEBUG:
     INSTALLED_APPS.append("django_extensions")
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 # Django Rest Framework
 # https://www.django-rest-framework.org/
 

@@ -72,12 +72,9 @@
         </a>
     </p>
 </div>
-<div class="table-container">
-
-    <table id="bulma-milestone-table" class="table is-striped is-hoverable is-fullwidth"
-        hx-get="{% url 'bulma-milestone-table' %}" hx-trigger="load"></table>
-    </table>
-</div>
+<table id="bulma-milestone-table" class="table is-striped is-hoverable is-fullwidth"
+    hx-get="{% url 'bulma-milestone-table' %}" hx-trigger="load"></table>
+</table>
 <div id="bulma-milestone-modal" class="modal"></div>
 <script>
     document.body.addEventListener("openBulmaModal", function (evt) {

@@ -77,16 +77,17 @@
     <table id="bulma-milestone-table" class="table is-striped is-hoverable is-fullwidth"
         hx-get="{% url 'bulma-milestone-table' %}" hx-trigger="load"></table>
     </table>
-    <div id="bulma-milestone-modal" class="modal"></div>
-    <script>
-        document.body.addEventListener("openBulmaModal", function (evt) {
-            var bulma_modal = Bulma("#bulma-milestone-modal").modal();
-            bulma_modal.open();
-        });
-        function test_clear() {
-            document.getElementById("bulma-milestone-search-milestone").value = "";
-            document.getElementById("bulma-milestone-search-desc").value = "";
-            document.getElementById("bulma-milestone-search-type").selectedIndex = 0;
-            document.getElementById("bulma-milestone-search-tag").selectedIndex = 0;
-        }
-    </script>
+</div>
+<div id="bulma-milestone-modal" class="modal"></div>
+<script>
+    document.body.addEventListener("openBulmaModal", function (evt) {
+        var bulma_modal = Bulma("#bulma-milestone-modal").modal();
+        bulma_modal.open();
+    });
+    function test_clear() {
+        document.getElementById("bulma-milestone-search-milestone").value = "";
+        document.getElementById("bulma-milestone-search-desc").value = "";
+        document.getElementById("bulma-milestone-search-type").selectedIndex = 0;
+        document.getElementById("bulma-milestone-search-tag").selectedIndex = 0;
+    }
+</script>

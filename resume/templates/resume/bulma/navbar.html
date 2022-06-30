@@ -1,28 +1,29 @@
-<nav class="navbar has-background-link-dark" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item">
-            <p class="title has-text-white">Resume</p>
-        </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="resume-nav-bar">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-    <div id="resume-nav-bar" class="navbar-menu">
-        <div class="navbar-start">
-            {% for link in view.links %}
-            <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
-            {% endfor %}
+<nav class="navbar">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item">
+                <p class="title has-text-white">Resume</p>
+            </a>
+            <span class="navbar-burger has-text-light" data-target="bulmaNavBar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
         </div>
-        <div class="navbar-end">
-            <div class="navbar-item bd-navbar-download-button is-hidden-touch">
-                <a class="button is-primary mr-3" href="https://github.com/chambersh1129/Resume" target="_blank">
-                    <span class="icon is-hidden-touch is-hidden-desktop-only">
-                        <i class="fab fa-github"></i>
-                    </span>
-                    <span>Source Code</span>
-                </a>
+        <div id="bulmaNavBar" class="navbar-menu">
+            <div class="navbar-end">
+                {% for link in view.links %}
+                <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
+                {% endfor %}
+                <span class="navbar-item">
+                    <a class="button is-link is-inverted" href="https://github.com/chambersh1129/Resume"
+                        target="_blank">
+                        <span class="icon">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>Source Code</span>
+                    </a>
+                </span>
             </div>
         </div>
     </div>

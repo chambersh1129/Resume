@@ -19,17 +19,43 @@
 </head>
 
 <body>
-    {% include "resume/bulma/navbar.html" %}
-    <div class="columns is-fullwidth">
-        <div class="column is-1 is-offset-2  has-background-light">
-            {% include "resume/bulma/sidenav.html" %}
+    <section class="hero is-link">
+        <div class="hero-head">
+            {% include "resume/bulma/navbar.html" %}
         </div>
-        <div class="column is-7">
-            <section class="hero">
-                <div class="hero-body">
-                    <div id="bulma-content"></div>
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <p class="title">
+                    {{ view.about.full_name }}
+                </p>
+                <p class="subtitle">
+                    {{ view.about.title }}
+                </p>
+            </div>
+        </div>
+        <div class="hero-foot">
+            <nav class="tabs">
+                <div class="container">
+                    <ul>
+                        <li><a hx-get="{% url 'bulma-about' %}" hx-trigger="load, click"
+                                hx-target="#bulma-content">About
+                                Me</a>
+                        </li>
+                        <li><a hx-get="{% url 'bulma-work-history' %}" hx-trigger="click"
+                                hx-target="#bulma-content">Work
+                                History</a></li>
+                        <li><a hx-get="{% url 'bulma-milestones' %}" hx-trigger="click"
+                                hx-target="#bulma-content">Milestones</a></li>
+                        <li><a hx-get="{% url 'bulma-hobbies' %}" hx-trigger="click"
+                                hx-target="#bulma-content">Hobbies</a>
+                    </ul>
                 </div>
-            </section>
+            </nav>
+        </div>
+    </section>
+    <div class="m-6">
+        <div class="container">
+            <div id="bulma-content"></div>
         </div>
     </div>
 </body>

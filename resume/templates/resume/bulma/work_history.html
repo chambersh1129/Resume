@@ -10,33 +10,34 @@
             <div class="content">
                 <p class="title is-4">{{ role.title }} at {{ role.company }}</p>
                 <p>{{ role.description|linebreaksbr }}</p>
-                <nav class="level is-mobile">
-                    <div class="level-item has-text-centered">
-                        <div>
-                            <p class="heading">Start Date</p>
-                            <p>{{ role.start_date }}</p>
-                        </div>
-                    </div>
-                    <div class="level-item has-text-centered">
-                        <div>
-                            <p class="heading">End Date</p>
-                            {% if not role.end_date %}
-                            <p>Present</p>
-                            {% else %}
-                            <p>{{ role.end_date }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="level-item has-text-centered">
-                        <div>
-                            <p class="heading">Total Time</p>
-                            <p>{{ role.total_time }}</p>
-                        </div>
-                    </div>
-                </nav>
+
             </div>
         </div>
     </article>
+    <nav class="level mt-4 is-mobile">
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Start Date</p>
+                <p>{{ role.start_date }}</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">End Date</p>
+                {% if not role.end_date %}
+                <p>Present</p>
+                {% else %}
+                <p>{{ role.end_date }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
+                <p class="heading">Total Time</p>
+                <p>{{ role.total_time }}</p>
+            </div>
+        </div>
+    </nav>
 </div>
 {% endfor %}
 {% if view.next_page %}

@@ -4,7 +4,7 @@
             {% for hobby in view.hobbies %}
             <div class="card">
                 <div class="card-image">
-                    <figure class="image is-4by3">
+                    <figure class="image is-16by9">
                         <img src="{{ hobby.img }}" alt="Placeholder image">
                     </figure>
                 </div>
@@ -23,7 +23,6 @@
 <script>
     bulmaCarousel.attach('#bulma-hobby-carousel', {
         slidesToScroll: 1,
-        slidesToShow: 2,
         loop: true,
     });
 </script>

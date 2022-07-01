@@ -5,7 +5,7 @@
         <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-        <p>{{ milestone.description|linebreaksbr }}</p><br>
+        <p>{{ milestone.html_description|safe }}</p><br>
         {% for tag in milestone.tags %}
         <span class="tag is-success">{{ tag }}</span>
         {% endfor %}

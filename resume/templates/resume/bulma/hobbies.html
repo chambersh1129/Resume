@@ -11,7 +11,7 @@
                 <div class="card-content">
                     <p class="title is-4">{{ hobby.hobby }}</p>
                     <div class="content">
-                        {{ hobby.description|linebreaksbr }}
+                        {{ hobby.html_description|safe }}
                     </div>
                 </div>
             </div>

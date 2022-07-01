@@ -5,7 +5,7 @@
     {{ view.about.title }}
 </p>
 <p>
-    {{ view.about.bio|linebreaksbr }}
+    {{ view.about.html_bio|safe }}
 </p>
 <br>
 {% if view.about.email %}

@@ -27,6 +27,10 @@ class AboutMe(models.Model):
 
         return f"{most_recent_role}"
 
+    @property
+    def html_bio(self):
+        return "<br>".join(self.bio.split("\n"))
+
 
 class Hobby(models.Model):
     hobby = models.CharField(max_length=64)
@@ -35,6 +39,10 @@ class Hobby(models.Model):
 
     def __str__(self):
         return self.hobby
+
+    @property
+    def html_description(self):
+        return "<br>".join(self.description.split("\n"))
 
 
 class WorkHistory(models.Model):
@@ -58,6 +66,10 @@ class WorkHistory(models.Model):
 
         total_time = (self.end_date or datetime.now().date()) - self.start_date
         return f"{round(total_time.days / 365, 2)} years"
+
+    @property
+    def html_description(self):
+        return "<br>".join(self.description.split("\n"))
 
 
 class MilestoneManager(models.Manager):
@@ -86,6 +98,10 @@ class Milestone(models.Model):
     @property
     def type_label(self):
         return Milestone.TypeChoices(self.type).label
+
+    @property
+    def html_description(self):
+        return "<br>".join(self.description.split("\n"))
 
     def tags(self):
         return [str(tag) for tag in self.tag.all()]

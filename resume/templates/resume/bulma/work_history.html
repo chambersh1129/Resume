@@ -9,7 +9,7 @@
         <div class="media-content">
             <div class="content">
                 <p class="title is-4">{{ role.title }} at {{ role.company }}</p>
-                <p>{{ role.description|linebreaksbr }}</p>
+                <p>{{ role.html_description|safe }}</p>
 
             </div>
         </div>

@@ -21,9 +21,9 @@ from .views import (
 )
 
 resume_router = DefaultRouter()
-resume_router.register("hobby", HobbyAPIViewSet)
-resume_router.register("milestone", MilestoneAPIViewSet)
-resume_router.register("milestone/tags", TagAPIViewSet)
+resume_router.register("hobbies", HobbyAPIViewSet)
+resume_router.register("milestones", MilestoneAPIViewSet)
+resume_router.register("milestones/tags", TagAPIViewSet)
 resume_router.register("work_history", WorkHistoryAPIViewSet)
 
 

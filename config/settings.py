@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     # 3rd party apps
+    "drf_yasg",
     "health_check",
     "health_check.db",
     "rest_framework",
@@ -97,6 +98,10 @@ CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+}
+
+SWAGGER_SETTINGS = {
+    "DOC_EXPANSION": "none",
 }
 
 # Database

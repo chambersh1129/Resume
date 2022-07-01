@@ -15,12 +15,6 @@ class HobbySerializer(serializers.ModelSerializer):
         fields = ["id", "hobby", "description"]
 
 
-class WorkHistorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WorkHistory
-        fields = ["id", "company", "title", "description", "start_date", "end_date", "total_time"]
-
-
 class MilestoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Milestone
@@ -34,3 +28,10 @@ class MilestoneTypeSerializer(serializers.BaseSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
+        fields = ["tag"]
+
+
+class WorkHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkHistory
+        fields = ["id", "company", "title", "description", "start_date", "end_date", "total_time"]

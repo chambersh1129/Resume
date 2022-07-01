@@ -2,11 +2,14 @@ from django.db.models import Q
 from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
+from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from .filters import MilestoneFilterSet, TagFilterSet, WorkHistoryFilterSet
 from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
-from .serializers import AboutMeSerializer, HobbySerializer, MilestoneSerializer, WorkHistorySerializer
+from .serializers import AboutMeSerializer, HobbySerializer, MilestoneSerializer, TagSerializer, WorkHistorySerializer
 
 
 class AboutAbstractView(TemplateView):
@@ -145,7 +148,7 @@ class URLAbstractView(TemplateView):
         self.links = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
             {"page": "Bulma", "url": reverse("bulma")},
-            {"page": "Swagger API", "url": reverse("swagger")},
+            {"page": "Swagger API", "url": reverse("swagger-ui")},
         ]
         response = super(URLAbstractView, self).dispatch(request, *args, **kwargs)
         return response
@@ -199,13 +202,18 @@ class ListViewSet(GenericViewSet, ListModelMixin):
     pass
 
 
-class AboutMeViewSet(ListViewSet):
+class AboutMeViewSet(GenericAPIView):
     """
     Get information about me, including contact information
     """
 
-    queryset = AboutMe.objects.all()
     serializer_class = AboutMeSerializer
+    pagination_class = None
+
+    def get(self, request, format=None):
+        about = AboutMe.objects.first()
+        serialized_data = AboutMeSerializer(about)
+        return Response(serialized_data.data)
 
 
 class HobbyAPIViewSet(ListViewSet):
@@ -217,15 +225,6 @@ class HobbyAPIViewSet(ListViewSet):
     serializer_class = HobbySerializer
 
 
-class WorkHistoryViewSet(ListViewSet):
-    """
-    My work history, including my current position (if I'm still employeed)
-    """
-
-    queryset = WorkHistory.objects.all()
-    serializer_class = WorkHistorySerializer
-
-
 class MilestoneAPIViewSet(ListViewSet):
     """
     What I consider my major milestones.  Includes projects, certifications, eduction, or anything else I consider
@@ -234,8 +233,24 @@ class MilestoneAPIViewSet(ListViewSet):
 
     queryset = Milestone.objects.all()
     serializer_class = MilestoneSerializer
+    filter_backends = [MilestoneFilterSet]
 
 
-class SwaggerView(TemplateView):
-    template_name = "resume/swagger.html"
-    extra_context = {"schema_url": "openapi-schema"}
+class TagAPIViewSet(ListViewSet):
+    """
+    Retrieve the list of Milestone tags
+    """
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    filter_backends = [TagFilterSet]
+
+
+class WorkHistoryAPIViewSet(ListViewSet):
+    """
+    My work history, including my current position (if I'm still employeed)
+    """
+
+    queryset = WorkHistory.objects.all()
+    serializer_class = WorkHistorySerializer
+    filter_backends = [WorkHistoryFilterSet]

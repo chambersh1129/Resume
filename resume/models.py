@@ -37,6 +37,9 @@ class Hobby(models.Model):
     description = models.TextField()
     img = models.CharField(max_length=64)
 
+    class Meta:
+        ordering = ["hobby"]
+
     def __str__(self):
         return self.hobby
 
@@ -91,6 +94,9 @@ class Milestone(models.Model):
     tag = models.ManyToManyField("tag", blank=True)
 
     objects = MilestoneManager()
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

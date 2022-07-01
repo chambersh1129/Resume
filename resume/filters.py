@@ -12,7 +12,7 @@ class MilestoneFilterSet(BaseFilterBackend):
             queryset = queryset.filter(name__icontains=params.get("milestone"))
 
         if "description" in params:
-            queryset = queryset.filter(description__icontains=params.get("desc"))
+            queryset = queryset.filter(description__icontains=params.get("description"))
 
         if "type" in params:
             queryset = queryset.filter(type__icontains=params.get("type"))

@@ -28,7 +28,7 @@ class MilestoneTypeSerializer(serializers.BaseSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ["tag"]
+        fields = ["id", "tag"]
 
 
 class WorkHistorySerializer(serializers.ModelSerializer):

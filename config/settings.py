@@ -13,6 +13,7 @@ from pathlib import Path
 
 import environ
 from django.core.management.utils import get_random_secret_key
+from django.utils.crypto import get_random_string
 
 env = environ.Env()
 
@@ -84,7 +85,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Security Settings
-ADMIN_URL_PREPEND = env.str("DJANGO_ADMIN_URL_PREPEND")
+ADMIN_URL_PREPEND = env.str("DJANGO_ADMIN_URL_PREPEND", default=get_random_string())
 CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)
 SECURE_BROWSER_XSS_FILTER = env.bool("DJANGO_SECURE_BROWSER_XSS_FILTER", default=True)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)

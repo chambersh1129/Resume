@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path(f"{settings.ADMIN_URL_PREPEND}/admin/", admin.site.urls),
     path("health/", include("health_check.urls")),
     path("", include("resume.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

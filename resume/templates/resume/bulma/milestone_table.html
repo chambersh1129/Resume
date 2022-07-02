@@ -34,7 +34,7 @@
     <a class="pagination-previous" hx-get="{% url 'bulma-milestone-table' %}{{ view.prev_page }}" hx-trigger="click"
         hx-target="#bulma-milestone-table">Previous</a>
     {% else %}
-    <a class="pagination-next is-disabled">Previous</a>
+    <a class="pagination-previous is-disabled">Previous</a>
     {% endif %}
     {% if view.next_page %}
     <a class="pagination-next" hx-get="{% url 'bulma-milestone-table' %}{{ view.next_page }}" hx-trigger="click"
@@ -42,5 +42,8 @@
     {% else %}
     <a class="pagination-next is-disabled">Next page</a>
     {% endif %}
+    <ul class="pagination-list">
+        <li><span class="pagination-ellipsis">Total: {{view.total_count }}</span></li>
+    </ul>
 </nav>
 {% endif %}

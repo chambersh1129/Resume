@@ -95,8 +95,8 @@ class MilestoneTableAbstractView(TemplateView):
         else:
             query = Milestone.objects.all()
 
-        total_count = query.count()
-        if total_count > (offset + limit):
+        self.total_count = query.count()
+        if self.total_count > (offset + limit):
             self.next_page = f"?offset={offset+limit}"
             if get_params:
                 self.next_page += get_params

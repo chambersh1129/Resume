@@ -1,4 +1,7 @@
+from datetime import date
+
 from rest_framework.compat import coreapi, coreschema
+from rest_framework.exceptions import ValidationError
 from rest_framework.filters import BaseFilterBackend
 
 from .models import Milestone
@@ -69,7 +72,14 @@ class WorkHistoryFilterSet(BaseFilterBackend):
             queryset = queryset.filter(description__icontains=params.get("description"))
 
         if "year" in params:
-            queryset = queryset.filter(start_date__year__lte=params.get("year"), end_date__year__gte=params.get("year"))
+            value = params.get("year")
+            try:
+                year = int(value)
+                date(year, 1, 1)
+
+            except Exception:
+                raise ValidationError(f"Invalid year provided: {value}")
+            queryset = queryset.filter(start_date__year__lte=year, end_date__year__gte=year)
 
         return queryset
 

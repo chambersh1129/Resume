@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.db.models import Q
 from rest_framework.compat import coreapi, coreschema
 from rest_framework.exceptions import ValidationError
 from rest_framework.filters import BaseFilterBackend
@@ -79,7 +80,9 @@ class WorkHistoryFilterSet(BaseFilterBackend):
 
             except Exception:
                 raise ValidationError(f"Invalid year provided: {value}")
-            queryset = queryset.filter(start_date__year__lte=year, end_date__year__gte=year)
+            queryset = queryset.filter(start_date__year__lte=year).filter(
+                Q(end_date__year__gte=year) | Q(end_date__year__isnull=True)
+            )
 
         return queryset
 

@@ -1,45 +1,51 @@
+from datetime import datetime
+
 import django_filters
+from django.core.validators import MaxValueValidator
+from django.db.models import Q
 
 from resume.models import Hobby, Milestone, Tag, WorkHistory
 
 
 class HobbyFilter(django_filters.FilterSet):
-    hobby = django_filters.CharFilter(lookup_expr="icontains")
-    description = django_filters.CharFilter(lookup_expr="icontains")
-
     class Meta:
         model = Hobby
         fields = ["id", "hobby", "description"]
 
 
 class MilestoneFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(lookup_expr="icontains")
-    description = django_filters.CharFilter(lookup_expr="icontains")
-    type = django_filters.ChoiceFilter(
-        choices=Milestone.TypeChoices.choices, lookup_expr="icontains", label="this is a test"
-    )
+    type = django_filters.ChoiceFilter(choices=Milestone.TypeChoices.choices)
     tag = django_filters.ModelMultipleChoiceFilter(
-        field_name="tag__tag", to_field_name="tag__icontains", queryset=Tag.objects.all()
+        field_name="tag__tag", to_field_name="tag", queryset=Tag.objects.all()
     )
 
     class Meta:
         model = Milestone
-        fields = ["id", "description", "type", "tag"]
+        fields = ["id", "name", "description", "type", "tag"]
 
 
 class TagFilter(django_filters.FilterSet):
-    tag = django_filters.CharFilter(lookup_expr="icontains")
-
     class Meta:
         model = Tag
         fields = ["id", "tag"]
 
 
+class WorkHistoryYearFilter(django_filters.NumberFilter):
+    def get_max_validator(self):
+        """
+        Return a MaxValueValidator for the field, or None to disable.
+        """
+        return MaxValueValidator(datetime.now().year + 1)
+
+
 class WorkHistoryFilter(django_filters.FilterSet):
-    company = django_filters.CharFilter(lookup_expr="icontains")
-    title = django_filters.CharFilter(lookup_expr="icontains")
-    description = django_filters.CharFilter(lookup_expr="icontains")
+    year = WorkHistoryYearFilter(method="year_of_employment")
 
     class Meta:
         model = WorkHistory
-        fields = ["id", "company", "title", "description", "start_date", "end_date"]
+        fields = ["id", "company", "title", "description"]
+
+    def year_of_employment(self, queryset, name, value):
+        return queryset.filter(start_date__year__lte=value).filter(
+            Q(end_date__year__gte=value) | Q(end_date__year__isnull=True)
+        )

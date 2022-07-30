@@ -122,6 +122,10 @@ GRAPHENE = {
     "RELAY_CONNECTION_MAX_LIMIT": 25,
 }
 
+# django-filter
+# https://django-filter.readthedocs.io/en/main/ref/settings.html
+
+FILTERS_DEFAULT_LOOKUP_EXPR = "icontains"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

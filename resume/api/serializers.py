@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
+from resume.models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 
 
 class AboutMeSerializer(serializers.ModelSerializer):
@@ -19,10 +19,6 @@ class MilestoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Milestone
         fields = ["id", "name", "description", "type", "tags"]
-
-
-class MilestoneTypeSerializer(serializers.BaseSerializer):
-    type = serializers.CharField(max_length=Milestone.type.field.max_length)
 
 
 class TagSerializer(serializers.ModelSerializer):

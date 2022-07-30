@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     # 3rd party apps
+    "django_filters",
     "drf_yasg",
     "health_check",
     "health_check.db",
+    "graphene_django",
     "rest_framework",
     # custom apps
     "resume",
@@ -99,7 +101,7 @@ SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)
 # https://www.django-rest-framework.org/
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "resume.pagination.CustomPageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "resume.api.pagination.CustomPageNumberPagination",
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
     ],
@@ -111,6 +113,15 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
 }
+
+# Django Graphene
+# https://docs.graphene-python.org/projects/django/en/latest/
+
+GRAPHENE = {
+    "SCHEMA": "resume.graphql.schema",
+    "RELAY_CONNECTION_MAX_LIMIT": 25,
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

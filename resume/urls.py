@@ -1,10 +1,6 @@
-from django.urls import include, path
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 from .views import (
-    AboutMeViewSet,
     BootstrapView,
     BulmaAboutView,
     BulmaHobbyView,
@@ -13,27 +9,7 @@ from .views import (
     BulmaMilestoneView,
     BulmaView,
     BulmaWorkHistoryView,
-    HobbyAPIViewSet,
     HomePageView,
-    MilestoneAPIViewSet,
-    TagAPIViewSet,
-    WorkHistoryAPIViewSet,
-)
-
-resume_router = DefaultRouter()
-resume_router.register("hobbies", HobbyAPIViewSet)
-resume_router.register("milestones", MilestoneAPIViewSet)
-resume_router.register("milestones/tags", TagAPIViewSet)
-resume_router.register("work_history", WorkHistoryAPIViewSet)
-
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Resume API",
-        description="Resume for Hunter Chambers",
-        default_version="v1",
-    ),
-    public=True,
 )
 
 urlpatterns = [
@@ -46,7 +22,4 @@ urlpatterns = [
     path("bulma/milestones/table/", BulmaMilestoneTableView.as_view(), name="bulma-milestone-table"),
     path("bulma/milestones/<int:pk>/", BulmaMilestoneDetailView.as_view(), name="bulma-milestone-detail"),
     path("bulma/work_history/", BulmaWorkHistoryView.as_view(), name="bulma-work-history"),
-    path("api/swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="swagger-ui"),
-    path("api/about_me", AboutMeViewSet.as_view(), name="about-me"),
-    path("api/", include(resume_router.urls)),
 ]

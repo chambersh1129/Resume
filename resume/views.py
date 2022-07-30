@@ -2,14 +2,9 @@ from django.db.models import Q
 from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin
-from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
 
-from .filters import MilestoneFilterSet, TagFilterSet, WorkHistoryFilterSet
+from .graphql import default_query
 from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
-from .serializers import AboutMeSerializer, HobbySerializer, MilestoneSerializer, TagSerializer, WorkHistorySerializer
 
 
 class AboutAbstractView(TemplateView):
@@ -148,7 +143,8 @@ class URLAbstractView(TemplateView):
         self.links = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
             {"page": "Bulma", "url": reverse("bulma")},
-            {"page": "Swagger API", "url": reverse("swagger-ui")},
+            {"page": "GraphiQL", "url": reverse("graphql") + "#" + default_query},
+            {"page": "Swagger API", "url": reverse("api-docs")},
         ]
         response = super(URLAbstractView, self).dispatch(request, *args, **kwargs)
         return response
@@ -191,66 +187,3 @@ class BulmaMilestoneDetailView(MilestoneDetailAbstractView):
 
 class BulmaWorkHistoryView(WorkHistoryAbstractView):
     template_name = "resume/bulma/work_history.html"
-
-
-"""
-API Views
-"""
-
-
-class ListViewSet(GenericViewSet, ListModelMixin):
-    pass
-
-
-class AboutMeViewSet(GenericAPIView):
-    """
-    Get information about me, including contact information
-    """
-
-    serializer_class = AboutMeSerializer
-    pagination_class = None
-
-    def get(self, request, format=None):
-        about = AboutMe.objects.first()
-        serialized_data = AboutMeSerializer(about)
-        return Response(serialized_data.data)
-
-
-class HobbyAPIViewSet(ListViewSet):
-    """
-    What I like to do when I'm not working
-    """
-
-    queryset = Hobby.objects.all()
-    serializer_class = HobbySerializer
-
-
-class MilestoneAPIViewSet(ListViewSet):
-    """
-    What I consider my major milestones.  Includes projects, certifications, eduction, or anything else I consider
-    an accomplishment
-    """
-
-    queryset = Milestone.objects.all()
-    serializer_class = MilestoneSerializer
-    filter_backends = [MilestoneFilterSet]
-
-
-class TagAPIViewSet(ListViewSet):
-    """
-    Retrieve the list of Milestone tags
-    """
-
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-    filter_backends = [TagFilterSet]
-
-
-class WorkHistoryAPIViewSet(ListViewSet):
-    """
-    My work history, including my current position (if I'm still employeed)
-    """
-
-    queryset = WorkHistory.objects.all()
-    serializer_class = WorkHistorySerializer
-    filter_backends = [WorkHistoryFilterSet]

@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 
-from .graphql import default_query
 from .models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 
 
@@ -143,7 +142,7 @@ class URLAbstractView(TemplateView):
         self.links = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
             {"page": "Bulma", "url": reverse("bulma")},
-            {"page": "GraphiQL", "url": reverse("graphql") + "#" + default_query},
+            {"page": "GraphiQL", "url": reverse("graphql")},
             {"page": "Swagger API", "url": reverse("api-docs")},
         ]
         response = super(URLAbstractView, self).dispatch(request, *args, **kwargs)

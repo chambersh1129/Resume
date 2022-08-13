@@ -11,6 +11,10 @@ class AboutMe(models.Model):
     github = models.URLField(null=True)
     linkedin = models.URLField(null=True)
 
+    class Meta:
+        verbose_name = "About Me"
+        verbose_name_plural = "About Me"
+
     def __str__(self):
         return self.full_name
 
@@ -39,36 +43,11 @@ class Hobby(models.Model):
 
     class Meta:
         ordering = ["hobby"]
+        verbose_name = "Hobby"
+        verbose_name_plural = "Hobbies"
 
     def __str__(self):
         return self.hobby
-
-    @property
-    def html_description(self):
-        return "<br>".join(self.description.split("\n"))
-
-
-class WorkHistory(models.Model):
-    company = models.CharField(max_length=64)
-    title = models.CharField(max_length=64)
-    description = models.TextField()
-    img = models.URLField()
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
-
-    class Meta:
-        ordering = ["-start_date"]
-
-    def __str__(self):
-        return f"{self.title} at {self.company}"
-
-    @property
-    def total_time(self):
-        if not self.start_date:
-            return "n/a"
-
-        total_time = (self.end_date or datetime.now().date()) - self.start_date
-        return f"{round(total_time.days / 365, 2)} years"
 
     @property
     def html_description(self):
@@ -121,3 +100,32 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag
+
+
+class WorkHistory(models.Model):
+    company = models.CharField(max_length=64)
+    title = models.CharField(max_length=64)
+    description = models.TextField()
+    img = models.URLField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-start_date"]
+        verbose_name = "Work History"
+        verbose_name_plural = "Work History"
+
+    def __str__(self):
+        return f"{self.title} at {self.company}"
+
+    @property
+    def total_time(self):
+        if not self.start_date:
+            return "n/a"
+
+        total_time = (self.end_date or datetime.now().date()) - self.start_date
+        return f"{round(total_time.days / 365, 2)} years"
+
+    @property
+    def html_description(self):
+        return "<br>".join(self.description.split("\n"))

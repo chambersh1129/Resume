@@ -31,7 +31,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
-ALLOWED_HOSTS = ["chambersh1129-resume.herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [".chambersh.duckdns.org", "localhost", "127.0.0.1"]
 
 
 # Application definition

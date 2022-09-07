@@ -41,11 +41,6 @@
 </div>
 {% endfor %}
 {% if view.next_page %}
-<div id="more_work_history">
-    <div class="block has-text-centered">
-        <button class="button is-info is-outlined" hx-get="{% url 'bulma-work-history' %}{{ view.next_page }}"
-            hx-target="#more_work_history" hx-swap="outerHTML">
-            Load more Work History</button>
-    </div>
+<div hx-get="{% url 'bulma-work-history' %}{{ view.next_page }}" hx-trigger="revealed" hx-swap="outerHTML">
 </div>
 {% endif %}

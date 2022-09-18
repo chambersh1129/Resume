@@ -14,7 +14,7 @@
         <span class="icon">
             <i class="fa-solid fa-at"></i>
         </span>
-        <a href="mailto:{{ view.about.email }}">Email</a>
+        <a href="mailto:{{ view.about.email }}" target="_blank">Email</a>
     </span>
 </p>
 {% endif %}
@@ -24,7 +24,7 @@
         <span class="icon">
             <i class="fa-brands fa-github"></i>
         </span>
-        <a href="{{ view.about.github }}">GitHub</a>
+        <a href="{{ view.about.github }}" target="_blank">GitHub</a>
     </span>
 </p>
 {% endif %}
@@ -34,7 +34,18 @@
         <span class="icon">
             <i class="fa-brands fa-linkedin"></i>
         </span>
-        <a href="{{ view.about.linkedin }}">LinkedIn</a>
+        <a href="{{ view.about.linkedin }}" target="_blank">LinkedIn</a>
+    </span>
+</p>
+{% endif %}
+{% if view.about.resume %}
+<p>
+    <span class="icon-text">
+        <span class="icon">
+            <i class="fa-solid fa-download"></i>
+        </span>
+        <a href="{{ view.about.resume }}" target="_blank">Download
+            Resume</a>
     </span>
 </p>
 {% endif %}

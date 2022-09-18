@@ -16,10 +16,11 @@ class AboutMeType(DjangoObjectType):
     email = graphene.String(description="My Email Address")
     github = graphene.String(description="My GitHub Profile")
     linkedin = graphene.String(description="My LinkedIn Profile")
+    resume = graphene.String(description="Link to Download My Resume")
 
     class Meta:
         model = AboutMe
-        fields = ("id", "email", "github", "linkedin")
+        fields = ("id", "email", "github", "linkedin", "resume")
 
     def resolve_full_name(self, info):
         return self.full_name

@@ -10,6 +10,7 @@ class AboutMe(models.Model):
     email = models.EmailField(null=True)
     github = models.URLField(null=True)
     linkedin = models.URLField(null=True)
+    resume = models.URLField(null=True)
 
     class Meta:
         verbose_name = "About Me"

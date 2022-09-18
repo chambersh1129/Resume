@@ -6,7 +6,7 @@ from resume.models import AboutMe, Hobby, Milestone, Tag, WorkHistory
 class AboutMeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutMe
-        fields = ["full_name", "title", "email", "github", "linkedin"]
+        fields = ["full_name", "title", "email", "github", "linkedin", "resume"]
 
 
 class HobbySerializer(serializers.ModelSerializer):

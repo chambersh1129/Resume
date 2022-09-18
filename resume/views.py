@@ -132,6 +132,8 @@ class WorkHistoryAbstractView(TemplateView):
         max = offset + limit
 
         self.work_history = WorkHistory.objects.all()[offset:max]
+        self.offset = offset
+        self.limit = limit
 
         response = super(WorkHistoryAbstractView, self).dispatch(request, *args, **kwargs)
         return response
@@ -156,6 +158,26 @@ class HomePageView(RedirectView):
 
 class BootstrapView(AboutAbstractView, URLAbstractView):
     template_name = "resume/bootstrap/base.html"
+
+
+class BootstrapAboutView(AboutAbstractView):
+    template_name = "resume/bootstrap/about.html"
+
+
+class BootstrapHobbyView(HobbyAbstractView):
+    template_name = "resume/bootstrap/hobbies.html"
+
+
+class BootstrapMilestoneView(AboutAbstractView):
+    template_name = "resume/bootstrap/milestones.html"
+
+
+class BootstrapMilestoneTableView(MilestoneTableAbstractView):
+    template_name = "resume/bootstrap/milestone_table.html"
+
+
+class BootstrapWorkHistoryView(WorkHistoryAbstractView):
+    template_name = "resume/bootstrap/work_history.html"
 
 
 class BulmaView(AboutAbstractView, URLAbstractView):

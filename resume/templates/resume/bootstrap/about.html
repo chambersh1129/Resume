@@ -1,0 +1,37 @@
+<div class="container p-3 mb-3">
+    <h1 class="display-2">
+        {{ view.about.full_name }}
+    </h1>
+    <h4>
+        {{ view.about.title }}
+    </h4>
+    <br>
+    <p>
+        {{ view.about.html_bio|safe }}
+    </p>
+    <br>
+    {% if view.about.email %}
+    <i class="bi bi-at"></i>
+    <a href="mailto:{{ view.about.email }}" target="_blank">Email</a>
+    <br>
+    {% endif %}
+    {% if view.about.github %}
+    <i class="bi bi-github"></i>
+    <a href="{{ view.about.github }}" target="_blank">GitHub</a>
+    <br>
+    {% endif %}
+    {% if view.about.linkedin %}
+    <i class="bi bi-linkedin"></i>
+    <a href="{{ view.about.linkedin }}" target="_blank">LinkedIn</a>
+    <br>
+    {% endif %}
+    {% if view.about.resume %}
+    <i class="bi bi-download"></i>
+    <a href="{{ view.about.resume }}" target="_blank">Download My Resume</a>
+    <br>
+    {% endif %}
+</div>
+
+<div hx-get="{% url 'bootstrap-work-history' %}" hx-trigger="revealed" hx-target="#bootstrap-work-history"
+    hx-swap="outerHTML">
+</div>

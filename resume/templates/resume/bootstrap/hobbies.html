@@ -1,0 +1,46 @@
+<div class="container p-3 mb-3">
+    <h1 class="display-4">
+        Hobbies
+    </h1>
+    <hr>
+    <div id="bootstrap-hobbies-carousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+            {% for hobby in view.hobbies %}
+            {% if forloop.first %}
+            <button type="button" data-bs-target="#bootstrap-hobbies-carousel" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="{{ hobby.hobby }}"></button>
+            {% else %}
+            <button type="button" data-bs-target="#bootstrap-hobbies-carousel" data-bs-slide-to="{{ forloop.counter0 }}"
+                aria-label="{{ hobby.hobby }}"></button>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for hobby in view.hobbies %}
+            {% if forloop.first %}
+            <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                    {% endif %}
+                    <img src="{{ hobby.img }}" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <div class="text-dark bg-white">
+                            <h5>{{ hobby.hobby }}</h5>
+                            <p>{{ hobby.html_description|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bootstrap-hobbies-carousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bootstrap-hobbies-carousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>

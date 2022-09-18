@@ -3,7 +3,6 @@ from django.urls import path
 from .views import (
     BootstrapAboutView,
     BootstrapHobbyView,
-    BootstrapMilestoneTableView,
     BootstrapMilestoneView,
     BootstrapView,
     BootstrapWorkHistoryView,
@@ -23,7 +22,6 @@ urlpatterns = [
     path("bootstrap/about/", BootstrapAboutView.as_view(), name="bootstrap-about"),
     path("bootstrap/hobbies/", BootstrapHobbyView.as_view(), name="bootstrap-hobbies"),
     path("bootstrap/milestones/", BootstrapMilestoneView.as_view(), name="bootstrap-milestones"),
-    path("bootstrap/milestones/table/", BootstrapMilestoneTableView.as_view(), name="bootstrap-milestone-table"),
     path("bootstrap/work_history/", BootstrapWorkHistoryView.as_view(), name="bootstrap-work-history"),
     path("bulma/", BulmaView.as_view(), name="bulma"),
     path("bulma/about/", BulmaAboutView.as_view(), name="bulma-about"),

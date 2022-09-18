@@ -168,12 +168,8 @@ class BootstrapHobbyView(HobbyAbstractView):
     template_name = "resume/bootstrap/hobbies.html"
 
 
-class BootstrapMilestoneView(AboutAbstractView):
+class BootstrapMilestoneView(MilestoneTableAbstractView):
     template_name = "resume/bootstrap/milestones.html"
-
-
-class BootstrapMilestoneTableView(MilestoneTableAbstractView):
-    template_name = "resume/bootstrap/milestone_table.html"
 
 
 class BootstrapWorkHistoryView(WorkHistoryAbstractView):

@@ -13,8 +13,38 @@
         <div id="bulmaNavBar" class="navbar-menu">
             <div class="navbar-end">
                 {% for link in view.links %}
-                <a class="navbar-item has-text-white" href="{{ link.url }}" target="_blank">{{ link.page }}</a>
+                <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
                 {% endfor %}
+
+                <span class="navbar-item">
+                    <div class="dropdown">
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Framework</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                {% for link in view.dropdown %}
+                                {% if link.page == view.FRAMEWORK %}
+                                <a href="#" class="dropdown-item is-active">
+                                    {{ link.page }}
+                                </a>
+                                {% else %}
+                                <a href="{{ link.url }}" class="dropdown-item">
+                                    {{ link.page }}
+                                </a>
+                                {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </span>
+
                 <span class="navbar-item">
                     <a class="button is-link is-inverted" href="https://github.com/chambersh1129/Resume"
                         target="_blank">

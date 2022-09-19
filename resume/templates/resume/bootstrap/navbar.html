@@ -7,9 +7,28 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Framework
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        {% for link in view.dropdown %}
+                        {% if link.page == view.FRAMEWORK %}
+                        <li>
+                            <a class="dropdown-item active" href="#" aria-current="true">{{ link.page }}</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="dropdown-item" href="{{ link.url }}">{{ link.page }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
                 {% for link in view.links %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ link.url }}">{{ link.page }}</a>
+                    <a class="nav-link" href="{{ link.url }}" target="_blank">{{ link.page }}</a>
                 </li>
                 {% endfor %}
             </ul>

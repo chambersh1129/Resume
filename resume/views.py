@@ -140,10 +140,14 @@ class WorkHistoryAbstractView(TemplateView):
 
 
 class URLAbstractView(TemplateView):
+    FRAMEWORK = None
+
     def dispatch(self, request, *args, **kwargs):
-        self.links = [
+        self.dropdown = [
             {"page": "Bootstrap", "url": reverse("bootstrap")},
             {"page": "Bulma", "url": reverse("bulma")},
+        ]
+        self.links = [
             {"page": "GraphiQL", "url": reverse("graphql")},
             {"page": "Swagger API", "url": reverse("api-docs")},
         ]
@@ -157,6 +161,7 @@ class HomePageView(RedirectView):
 
 
 class BootstrapView(AboutAbstractView, URLAbstractView):
+    FRAMEWORK = "Bootstrap"
     template_name = "resume/bootstrap/base.html"
 
 
@@ -169,6 +174,7 @@ class BootstrapHobbyView(HobbyAbstractView):
 
 
 class BootstrapMilestoneView(MilestoneTableAbstractView):
+    LIMIT = Milestone.objects.count()
     template_name = "resume/bootstrap/milestones.html"
 
 
@@ -177,6 +183,7 @@ class BootstrapWorkHistoryView(WorkHistoryAbstractView):
 
 
 class BulmaView(AboutAbstractView, URLAbstractView):
+    FRAMEWORK = "Bulma"
     template_name = "resume/bulma/base.html"
 
 

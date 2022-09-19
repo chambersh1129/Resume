@@ -16,7 +16,7 @@
             {% for milestone in view.milestones %}
             <tr>
                 <td>{{ milestone.name }}</td>
-                <td>{{ milestone.description }}</td>
+                <td>{{ milestone.html_description|safe }}</td>
                 <td>{{ milestone.type_label }}</td>
                 <td>
                     {% for tag in milestone.tags %}
@@ -29,6 +29,7 @@
         <tfoot>
             <tr>
                 <th>Milestone</th>
+                <th>Description</th>
                 <th>Type</th>
                 <th>Tags</th>
             </tr>
@@ -36,12 +37,15 @@
     </table>
 
     <script>
-        function render_table() {
-            $('#bootstrap-milestone-table').DataTable();
-        };
-        render_table();
+        $(document).ready(function () {
+            $('#bootstrap-milestone-table').DataTable({
+                scrollY: '75vh',
+                scrollCollapse: true,
+                paging: false,
+            });
+        });
     </script>
 </div>
 
-<div hx-get="{% url 'bootstrap-hobbies' %}" hx-trigger="revealed" hx-swap="outerHTML">
+<div hx-get="{% url 'bootstrap-hobbies' %}" hx-trigger="revealed" hx-swap="afterend">
 </div>

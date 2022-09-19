@@ -157,7 +157,7 @@ class URLAbstractView(TemplateView):
 
 class HomePageView(RedirectView):
     permanent = True
-    pattern_name = "bulma"
+    pattern_name = "bootstrap"
 
 
 class BootstrapView(AboutAbstractView, URLAbstractView):

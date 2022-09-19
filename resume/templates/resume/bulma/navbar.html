@@ -1,8 +1,8 @@
-<nav class="navbar">
+<nav class="navbar is-link">
     <div class="container">
         <div class="navbar-brand">
             <div class="navbar-item">
-                <p class="title has-text-white">Resume</p>
+                <p class="title">Resume</p>
             </div>
             <span class="navbar-burger has-text-light" data-target="bulmaNavBar">
                 <span></span>
@@ -13,38 +13,28 @@
         <div id="bulmaNavBar" class="navbar-menu">
             <div class="navbar-end">
                 {% for link in view.links %}
-                <a class="navbar-item has-text-white" href="{{ link.url }}">{{ link.page }}</a>
+                <a class="navbar-item" href="{{ link.url }}">{{ link.page }}</a>
                 {% endfor %}
-
-                <span class="navbar-item">
-                    <div class="dropdown">
-                        <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span>Framework</span>
-                                <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                {% for link in view.dropdown %}
-                                {% if link.page == view.FRAMEWORK %}
-                                <a href="#" class="dropdown-item is-active">
-                                    {{ link.page }}
-                                </a>
-                                {% else %}
-                                <a href="{{ link.url }}" class="dropdown-item">
-                                    {{ link.page }}
-                                </a>
-                                {% endif %}
-                                {% endfor %}
-
-                            </div>
-                        </div>
+                <span class="navbar-item has-dropdown">
+                    <a class="navbar-link">
+                        Framework
+                    </a>
+                    <div class="navbar-dropdown">
+                        {% for link in view.dropdown %}
+                        {% if link.page == view.FRAMEWORK %}
+                        <a href="#" class="navbar-item has-text-dark">
+                            <i class="fa-solid fa-chevron-right pr-2"></i>
+                            {{ link.page }}
+                            <i class="fa-solid fa-chevron-left pl-2"></i>
+                        </a>
+                        {% else %}
+                        <a href="{{ link.url }}" class="navbar-item has-text-dark">
+                            {{ link.page }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </span>
-
                 <span class="navbar-item">
                     <a class="button is-link is-inverted" href="https://github.com/chambersh1129/Resume"
                         target="_blank">

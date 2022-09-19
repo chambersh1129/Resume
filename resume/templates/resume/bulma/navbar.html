@@ -13,7 +13,7 @@
         <div id="bulmaNavBar" class="navbar-menu">
             <div class="navbar-end">
                 {% for link in view.links %}
-                <a class="navbar-item" href="{{ link.url }}">{{ link.page }}</a>
+                <a class="navbar-item" href="{{ link.url }}" target="_blank">{{ link.page }}</a>
                 {% endfor %}
                 <span class="navbar-item has-dropdown">
                     <a class="navbar-link">

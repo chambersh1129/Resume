@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # custom apps
     "resume",
+    "anonymous_logs",
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "anonymous_logs.middleware.LogAnonymousRequestsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
